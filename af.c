@@ -5,6 +5,7 @@
  */
 #include <stdio.h>
 #include "afd.h"
+#include "afn.h"
 
 int main(int argc, char *argv[])
 {
@@ -27,13 +28,21 @@ int main(int argc, char *argv[])
   afd_finit(&B, "exemple.afd");
   afd_print(B);
 
-  int t = afd_simul(argv[1],B);
+  int t = afd_simul("b",B);
   if(t == 1)
-	  printf("bravo");
+	  printf("bravo\n");
   else
-	  printf("u");
+	  printf("non\n");
   afd_free(&B);
   afd_free(&A);
+
+  afn X;
+  afn_finit("exemple.afn", &X);
+  afn_print(X);
+
+  ullong k = afn_epsilon_fermeture(X, 1ULL);
+  printf("%llu\n", k);
+
   return 0;
 }
 

@@ -1,4 +1,7 @@
 #include "afn.h"
+#include "afd.h"
+#include "pile.h"
+#include <stdio.h>
 
 
 void afn_init(afn *A, uint nbetat, char * alphabet, ullong init, ullong finals)
@@ -117,7 +120,7 @@ void afn_print(afn A){
   Initialise l'AFN <A> a partir des donnees du fichier <nomfichier> au
   format:
 
-  nb_etats nb_symboles
+  nb_etats alphabet
   etat_initial
   nb_etats_finals
   etat_final_1 etat_final_2 ... etat_final_n
@@ -129,13 +132,58 @@ void afn_print(afn A){
   etat_i_n1 symb_j_n etat_i_n2
 
 */
-void afn_finit(char *nomfichier, afn *A);
+void afn_finit(char *nomfichier, afn *A)
+{
+	FILE *f;
+	f = fopen(nomfichier, "r");
+	uint nbetat;
+	char alphabet[64];
+	ullong init;
+	uint nbfinal;
+	uint final;
+	ullong finals = 0;
+	fscanf(f, "%u %s\n", &nbetat, alphabet);
+	fscanf(f, "%llu\n", &init);
+	fscanf(f, "%u\n", &nbfinal);
+	for (int i = 0; i < nbfinal; ++i) {
+		fscanf(f, "%u", &final);
+		finals |= (1 << final);
+	}
+	afn_init(A, nbetat, alphabet, init, finals);
+
+	uint etat1;
+	char symb;
+	uint etat2;
+	while(fscanf(f, "%u %c %u", &etat1, &symb, &etat2) != EOF)
+		afn_add_trans(A, etat1, symb, etat2);
+}
 
 /*
   Retourne l'epsilon fermeture de l'ensemble d'états <R> par
   l'automate <A>
 */
-ullong afn_epsilon_fermeture(afn A, ullong R);
+ullong afn_epsilon_fermeture(afn A, ullong R)
+{
+	int i;
+	ullong ferm;
+	uint q;
+	pile p = NULL;
+	for(i=0; R >> i > 0; i++)
+		if((R >> i) % 2 != 0)
+			empile(i+1, &p);
+	ferm = R;
+	while(p != NULL){
+		q = depile(&p);
+		for (uint i = 0; i < A.nbetat; ++i) {
+			if( IN(i, A.delta[q][A.tsymb['&'-SYMB_ASCII_DEB]]) && !IN(i, ferm) ) {
+				ferm |= i;
+				empile(i, &p);
+			}
+		}
+	}
+	return ferm;
+}
+
 
 /*
   Calcule un automate deterministe equivalent à <A> et affecte le
