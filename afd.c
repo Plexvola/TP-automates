@@ -163,5 +163,14 @@ void afd_finit(afd *A, char *nomfichier)
 }
 
 int afd_simul(char *s, afd A){
-  
+	uint etat = A.init;
+	int i = 0;
+	while(s[i] != '\0'){
+		etat = A.delta[etat][A.tsymb[s[i]-SYMB_ASCII_DEB]];
+		i++;
+	}
+	for (int i = 0; i < A.nbfinal; ++i)
+		if(etat == A.finals[i])
+			return 1;
+	return 0;
 }

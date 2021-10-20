@@ -27,7 +27,11 @@ int main(int argc, char *argv[])
   afd_finit(&B, "exemple.afd");
   afd_print(B);
 
-  /* printf("%d", afd_simul(argv[1],B)); */ 
+  int t = afd_simul(argv[1],B);
+  if(t == 1)
+	  printf("bravo");
+  else
+	  printf("u");
   afd_free(&B);
   afd_free(&A);
   return 0;
