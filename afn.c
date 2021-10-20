@@ -170,13 +170,13 @@ ullong afn_epsilon_fermeture(afn A, ullong R)
 	pile p = NULL;
 	for(i=0; R >> i > 0; i++)
 		if((R >> i) % 2 != 0)
-			empile(i+1, &p);
+			empile(i, &p);
 	ferm = R;
 	while(p != NULL){
 		q = depile(&p);
 		for (uint i = 0; i < A.nbetat; ++i) {
 			if( IN(i, A.delta[q][A.tsymb['&'-SYMB_ASCII_DEB]]) && !IN(i, ferm) ) {
-				ferm |= i;
+				ferm |= INT_ETAT(i);
 				empile(i, &p);
 			}
 		}

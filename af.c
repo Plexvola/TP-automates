@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
   afn_finit("exemple.afn", &X);
   afn_print(X);
 
-  ullong k = afn_epsilon_fermeture(X, 1ULL);
+  ullong k = afn_epsilon_fermeture(X, 2ULL);
   printf("%llu\n", k);
 
   return 0;
