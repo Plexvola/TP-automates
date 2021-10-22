@@ -41,6 +41,8 @@ void afd_copy(afd *dest, afd *src);
 void afd_print(afd A);
 void afd_finit( afd *A, char *nomfichier);
 int afd_simul(char *s, afd A);
+void afd_add_state( afd *A );
+void afd_add_final( afd *A, uint f);
 
 
 #endif
