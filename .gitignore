@@ -1,3 +1,8 @@
+*.afd
+*.afn
+*.pdf
+automates.tar
+af
 # Prerequisites
 *.d
 
