@@ -8,6 +8,7 @@
 
 #define INT_ETAT(q) (1ULL<< (q)) 
 #define IN(q,X) ((INT_ETAT(q) & X ) > 0)
+#define ALPHABET "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&"
 
 typedef unsigned int uint;
 typedef unsigned long long int ullong;
@@ -29,6 +30,9 @@ void afn_finit(char *f, afn *A);
 
 ullong afn_epsilon_fermeture(afn A, ullong R);
 void afn_determinisation(afn A, afd *D);
-
+void afn_char(afn * C, char c);
+void afn_union(afn * C, afn A, afn B);
+void afn_concat(afn * C, afn A, afn B);
+void afn_kleene(afn * C, afn A);
 
 #endif

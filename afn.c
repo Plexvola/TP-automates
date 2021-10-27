@@ -3,6 +3,7 @@
 #include "pile.h"
 #include "file.h"
 #include <stdio.h>
+#include <string.h>
 
 
 void afn_init(afn * A, uint nbetat, char *alphabet, ullong init,
@@ -236,19 +237,96 @@ void afn_determinisation(afn A, afd * D)
   Calcule l'automate qui reconnait le caractere <c> dans un alphabet a
   <nbsymb> symboles
 */
-void afn_char(afn * C, char c, uint nbsymb);
+void afn_char(afn * C, char c)
+{
+	afn_init(C, 2, ALPHABET, INT_ETAT(0), INT_ETAT(1));
+	afn_add_trans(C, 0, c, 1);
+}
 
 /*
   Calcule un automate qui reconnait l'union de <A> et <B>
 */
-void afn_union(afn * C, afn A, afn B);
+void afn_union(afn * C, afn A, afn B)
+{
+	afn_init(C, A.nbetat + B.nbetat + 1, ALPHABET, INT_ETAT(0), A.finals<<1 | B.finals<<(A.nbetat+1) );
+	for(int i = 0; i < 64; i++)
+		if(A.init >> i & 0x1)
+			afn_add_trans(C, 0, '&', i+1);
+	
+	for(int i = 0; i < 64; i++)
+		if(B.init >> i & 0x1)
+			afn_add_trans(C, 0, '&', i+A.nbetat+1);
+
+	for (int i = 0; i < A.nbetat; ++i) {
+		for (int j = 0; j < A.nbsymb; ++j) {
+			for(int k = 0; k < 64; ++k){
+				if(A.delta[i][j] >> k & 0x1)
+					afn_add_trans(C, i+1, A.alphabet[j], k+1);
+			}
+		}
+	}
+	for (int i = 0; i < B.nbetat; ++i) {
+		for (int j = 0; j < B.nbsymb; ++j) {
+			for(int k = 0; k < 64; ++k){
+				if(B.delta[i][j] >> k & 0x1)
+					afn_add_trans(C, A.nbetat+i+1, B.alphabet[j], A.nbetat+k+1);
+			}
+		}
+	}
+}
 
 /*
   Calcule un automate qui reconnait la concatenation de <A> et <B>
 */
-void afn_concat(afn * C, afn A, afn B);
+void afn_concat(afn * C, afn A, afn B)
+{
+	afn_init(C, A.nbetat + B.nbetat, ALPHABET, A.init, B.finals);
+	for (int a = 0; a < 64; a++) {
+		if(A.finals >> a & 0x1)
+			for (int b = 0; b < 64; b++) {
+				if(B.init >> b & 0x1)
+					afn_add_trans(C, a, '&', A.nbetat+b);
+			}
+	}
+	for (int i = 0; i < A.nbetat; ++i) {
+		for (int j = 0; j < A.nbsymb; ++j) {
+			for(int k = 0; k < 64; ++k){
+				if(A.delta[i][j] >> k & 0x1)
+					afn_add_trans(C, i, A.alphabet[j], k);
+			}
+		}
+	}
+	for (int i = 0; i < B.nbetat; ++i) {
+		for (int j = 0; j < B.nbsymb; ++j) {
+			for(int k = 0; k < 64; ++k){
+				if(B.delta[i][j] >> k & 0x1)
+					afn_add_trans(C, A.nbetat+i, B.alphabet[j], A.nbetat+k);
+			}
+		}
+	}
+}
 
 /*
   Calcule un automate qui reconnait la fermeture de Kleene de <A>
 */
-void afn_kleene(afn * C, afn A);
+void afn_kleene(afn * C, afn A)
+{
+	afn_init(C, A.nbetat + 1, ALPHABET, INT_ETAT(0), INT_ETAT(0));
+
+	for(int i = 0; i < 64; i++)
+		if(A.init >> i & 0x1)
+			afn_add_trans(C, 0, '&', i+1);
+
+	for(int i = 0; i < 64; i++)
+		if(A.finals >> i & 0x1)
+			afn_add_trans(C, i+1, '&', 0);
+
+	for (int i = 0; i < A.nbetat; ++i) {
+		for (int j = 0; j < A.nbsymb; ++j) {
+			for(int k = 0; k < 64; ++k){
+				if(A.delta[i][j] >> k & 0x1)
+					afn_add_trans(C, i+1, A.alphabet[j], k+1);
+			}
+		}
+	}
+}
