@@ -6,7 +6,9 @@ Regex   -> Regex . Concat
 		 | Concat
 Concat  -> Concat + Kleene
 		 | Kleene
-Kleene  -> Base*
+Kleene  -> Repeat*
+		 | Repeat
+Repeat  -> Base{n}
 		 | Base
 Base    -> (Regex)
 		 | ALPHABET

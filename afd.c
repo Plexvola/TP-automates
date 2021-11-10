@@ -116,16 +116,16 @@ void afd_print(afd A)
 	printf("etat initial: %d\n", A.init);
 	printf("etats finals:");
 
-	for(i = 0; i < A.nbfinal; i++) {
+	for (i = 0; i < A.nbfinal; i++) {
 		printf(" %u", A.finals[i]);
 	}
 
 	/* for (i = 0; i < ((A.nbetat - 1) / ULLONG_BIT) + 1; i++) {
-		for (j = 0; j < ULLONG_BIT; j++) {
-			if ((1ULL << j) & A.finals[i])
-				printf(" %lu", i * ULLONG_BIT + j);
-		}
-	} */
+	   for (j = 0; j < ULLONG_BIT; j++) {
+	   if ((1ULL << j) & A.finals[i])
+	   printf(" %lu", i * ULLONG_BIT + j);
+	   }
+	   } */
 	printf("\n");
 
 	uint q;

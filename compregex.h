@@ -1,8 +1,9 @@
 #include "afn.h"
 
-#define IS_ALPHABET(X) ((X >= '0' && X <= '9') || (X >= 'A' && X <= 'Z') || (X >= 'a' && X <= 'z'))
+#define IS_ALPHABET(X) ((X >= 'A' && X <= 'Z') || (X >= 'a' && X <= 'z'))
+#define IS_NUMBER(X) (X >= '0' && X <= '9')
 
-enum type { CHAR, BINOP, UNOP, PAR_OUV, PAR_FER };
+enum type { CHAR, NB, BINOP, UNOP, OUV, FER };
 
 typedef struct {
 	enum type t;
@@ -15,4 +16,6 @@ afn parser(lex_unit * s, int len);
 afn regex();
 afn concat();
 afn kleene();
+afn repeat();
+afn set();
 afn base();

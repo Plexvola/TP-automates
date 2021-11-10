@@ -95,8 +95,9 @@ void afn_print(afn A)
 	uint q, q1, s;
 	printf("init:");
 	for (q = 0; q < A.nbetat; q++) {
-		if IN(q, A.init)
-			printf(" %d", q);
+		if IN
+			(q, A.init)
+				printf(" %d", q);
 	}
 	printf("\n");
 	printf("finals:");
@@ -217,7 +218,9 @@ void afn_determinisation(afn A, afd * D)
 			accessed = 0ULL;
 			for (int j = 0; p >> j > 0; j++) {	// éléments de l'ullong
 				if (IN(j, p)) {
-					accessed |= A.delta[j][A.tsymb[A.alphabet[i] - SYMB_ASCII_DEB]];
+					accessed |=
+						A.delta[j][A.
+								   tsymb[A.alphabet[i] - SYMB_ASCII_DEB]];
 				}
 			}
 			q = afn_epsilon_fermeture(A, accessed);
@@ -230,9 +233,9 @@ void afn_determinisation(afn A, afd * D)
 		}
 	}
 	for (ullong k = 0; k < INT_ETAT(A.nbetat) - 1; k++)
-		if(states[k] != 0)
-			for(unsigned int j = 0; k >> j > 0; j++)
-				if(IN(j, k) && IN(j, A.finals)) {
+		if (states[k] != 0)
+			for (unsigned int j = 0; k >> j > 0; j++)
+				if (IN(j, k) && IN(j, A.finals)) {
 					afd_add_final(D, states[k]);
 					break;
 				}
@@ -288,7 +291,8 @@ void afn_union(afn * C, afn A, afn B)
 */
 void afn_concat(afn * C, afn A, afn B)
 {
-	afn_init(C, A.nbetat + B.nbetat, ALPHABET, A.init, (B.finals << (A.nbetat)));
+	afn_init(C, A.nbetat + B.nbetat, ALPHABET, A.init,
+			 (B.finals << (A.nbetat)));
 	for (int a = 0; a < 64; a++) {
 		if (A.finals >> a & 0x1)
 			for (int b = 0; b < 64; b++) {
