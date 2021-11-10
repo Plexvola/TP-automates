@@ -111,18 +111,21 @@ void afd_copy(afd * dest, afd * src)
 
 void afd_print(afd A)
 {
-	int i, j;
+	int i;
 
 	printf("etat initial: %d\n", A.init);
 	printf("etats finals:");
 
-	for (i = 0; i < ((A.nbetat - 1) / ULLONG_BIT) + 1; i++) {
+	for(i = 0; i < A.nbfinal; i++) {
+		printf(" %u", A.finals[i]);
+	}
 
+	/* for (i = 0; i < ((A.nbetat - 1) / ULLONG_BIT) + 1; i++) {
 		for (j = 0; j < ULLONG_BIT; j++) {
 			if ((1ULL << j) & A.finals[i])
 				printf(" %lu", i * ULLONG_BIT + j);
 		}
-	}
+	} */
 	printf("\n");
 
 	uint q;
@@ -186,8 +189,9 @@ void afd_add_state(afd * A)
 	int j;
 	A->delta = reallocarray(A->delta, A->nbetat, sizeof(uint *));
 	A->delta[A->nbetat - 1] = calloc(A->nbsymb, sizeof(uint));
-	for (j = 0; j < A->nbsymb; j++)
+	for (j = 0; j < A->nbsymb; j++) {
 		A->delta[A->nbetat - 1][j] = ETAT_NONE;
+	}
 }
 
 void afd_add_final(afd * A, uint f)

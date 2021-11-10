@@ -36,11 +36,11 @@ int main(int argc, char *argv[])
 	afd_finit(&B, "exemple.afd");
 	// afd_print(B);
 
-	int t = afd_simul("b", B);
+	// int t = afd_simul("b", B);
 	/* if (t == 1)
-		printf("bravo\n");
-	else
-		printf("non\n"); */
+	   printf("bravo\n");
+	   else
+	   printf("non\n"); */
 	afd_free(&B);
 	afd_free(&A);
 
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 	// afd Y;
 	// afn_determinisation(X, &Y);
 	// afd_print(Y);
-	
+
 	afn U, V, W, X, Y;
 	afn_char(&U, 'a');
 	afn_print(U);

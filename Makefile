@@ -1,7 +1,10 @@
 CC = gcc
 CFLAGS = -Wall -g
 
-all: af
+all: af mygrep
+
+mygrep: mygrep.o compregex.o afn.o afd.o pile.o file.o
+	$(CC) $(CFLAGS) $^ -o $@
 
 af: af.o afd.o afn.o pile.o file.o
 	$(CC) $(CFLAGS) $^ -o $@
