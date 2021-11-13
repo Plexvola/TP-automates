@@ -38,7 +38,10 @@ lex_unit *scanner(char *s, int len)
 	return lchain;
 }
 
-/* transforme une chaîne d'unités lexicales en AFN */
+/* transforme une chaîne d'unités lexicales en AFN
+ * la chaîne est parcourue de gauche à droite, en
+ * commençant par la fin
+ */
 afn parser(lex_unit * s, int len)
 {
 	reg = s;

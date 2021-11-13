@@ -37,6 +37,9 @@ int main(int argc, char *argv[])
 		afn_print(N);
 	}
 	afn_determinisation(N, &D);
+	if (verbose) {
+		afd_print(D);
+	}
 	if (afd_simul(s, D)) {
 		printf("accepté\n");
 	} else {
