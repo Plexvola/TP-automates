@@ -233,7 +233,7 @@ void afn_determinisation(afn A, afd * D)
 			afd_add_trans(D, states[p], A.alphabet[i], states[q]);
 		}
 	}
-	for (ullong k = 0; k < INT_ETAT(A.nbetat) - 1; k++)
+	for (ullong k = 0; k < INT_ETAT(A.nbetat) ; k++)
 		if (states[k] != 0)
 			for (unsigned int j = 0; k >> j > 0; j++)
 				if (IN(j, k) && IN(j, A.finals)) {

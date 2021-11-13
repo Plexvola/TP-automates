@@ -9,9 +9,9 @@ int main(int argc, char *argv[]){
   afn X; afn Y; afn Z;
   afd D;char var1[]={96,0};int c=1;char var2[]={96,0};
   char var12[]={96,96,0};
-  for (int i=0; i<26; i++) {
+  for (int i=0; i<26&& c; i++) {
     var1[0]=i+97;
-    for (int j=0; j<26; j++) {
+    for (int j=0; j<26&& c; j++) {
       var2[0]=j+97;
       var12[0]=i+97; var12[1]=j+97;
       printf("test avec %s puis %s et %s\n", var1, var2, var12);
@@ -42,7 +42,5 @@ int main(int argc, char *argv[]){
     printf(RED "Erreur avec %s%s" reset,var1,var2);
   }
  return 0;
-
-
 }
  
