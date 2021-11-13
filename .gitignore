@@ -1,3 +1,9 @@
+*.afd
+*.afn
+*.pdf
+automates.tar
+af
+mygrep
 # Prerequisites
 *.d
 
