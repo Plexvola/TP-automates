@@ -28,7 +28,6 @@ int main(int argc, char *argv[])
 		printf("usage: %s [-v] <exreg> <chaîne>\n", argv[0]);
 		exit(EXIT_FAILURE);
 	}
-
 	afn N;
 	afd D;
 	char *regex = argv[optind];

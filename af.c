@@ -1,7 +1,7 @@
 /*
   I53 Compilation et théorie des langages
   Nicolas Méloni
-  28 - 10 -2019
+  28 - 10 -1096
  */
 #include <stdio.h>
 #include "afd.h"
