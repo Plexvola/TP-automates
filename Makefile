@@ -21,6 +21,9 @@ concat:afd.o afn.o ex2_c.o pile.o file.o
 kleen:afd.o afn.o ex2_k.o pile.o file.o
 	$(CC) $(CFLAGS) $^ -o $@ && ./kleen; rm kleen
 
+grep: ex3.o compregex.o afn.o afd.o pile.o file.o
+	$(CC) $(CFLAGS) $^ -o $@ && ./grep; rm grep
+
 %.o: %.c
 	$(CC) -c $(CFLAGS) $< -o $@
 
@@ -34,6 +37,9 @@ ex2_c.o: ./test/test_ex2_concat.c
 	$(CC) -c $(CFLAGS) $< -o $@
 
 ex2_k.o: ./test/test_ex2_kleen.c
+	$(CC) -c $(CFLAGS) $< -o $@
+
+ex3.o: ./test/ex3_grep.c
 	$(CC) -c $(CFLAGS) $< -o $@
 
 clean:
