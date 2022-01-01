@@ -3,15 +3,15 @@
   Nicolas Méloni
   28 - 10 -1096
  */
-#include <stdio.h>
 #include "afd.h"
 #include "afn.h"
+#include <stdio.h>
 
 int main(int argc, char *argv[])
 {
 	afd A, B;
 	char alphabet[] = "ab";
-	uint finals[2] = { 1, 4 };
+	uint finals[2] = {1, 4};
 
 	afd_init(&A, 0, alphabet, 2, 1, finals);
 

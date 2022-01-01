@@ -1,9 +1,14 @@
+.cache*
+tags
 *.afd
 *.afn
 *.pdf
 automates.tar
+
 af
 mygrep
+*.bin
+
 # Prerequisites
 *.d
 

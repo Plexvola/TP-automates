@@ -1,0 +1,38 @@
+{
+	ConcatR
+	Memcheck:Addr4
+	fun:concat
+	fun:regex
+	fun:parser
+	fun:main
+}
+{
+	ConcatR2
+	Memcheck:Addr4
+	fun:concat
+	fun:concat
+	fun:regex
+	fun:parser
+	fun:main
+}
+{
+	RegexR
+	Memcheck:Addr4
+	fun:regex
+	fun:parser
+	fun:main
+}
+{
+	RegexR2
+	Memcheck:Addr4
+	fun:regex
+	fun:regex
+	fun:parser
+	fun:main
+}
+{
+	statesQ
+	Memcheck:Addr4
+	fun:afn_determinisation
+	fun:main
+}

@@ -1,0 +1,192 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-g",
+      "-I./include",
+      "-o",
+      "mygrep.o",
+      "mygrep.c"
+    ],
+    "directory": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates",
+    "file": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/mygrep.c",
+    "output": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/mygrep.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-g",
+      "-I./include",
+      "-o",
+      "pile.o",
+      "pile.c"
+    ],
+    "directory": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates",
+    "file": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/pile.c",
+    "output": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/pile.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-g",
+      "-I./include",
+      "-o",
+      "file.o",
+      "file.c"
+    ],
+    "directory": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates",
+    "file": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/file.c",
+    "output": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/file.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-g",
+      "-I./include",
+      "-o",
+      "afd.o",
+      "afd.c"
+    ],
+    "directory": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates",
+    "file": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/afd.c",
+    "output": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/afd.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-g",
+      "-I./include",
+      "-o",
+      "afn.o",
+      "afn.c"
+    ],
+    "directory": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates",
+    "file": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/afn.c",
+    "output": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/afn.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-g",
+      "-I./include",
+      "-o",
+      "compregex.o",
+      "compregex.c"
+    ],
+    "directory": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates",
+    "file": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/compregex.c",
+    "output": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/compregex.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-g",
+      "-I./include",
+      "pile.o",
+      "file.o",
+      "afd.o",
+      "afn.o",
+      "compregex.o",
+      "-o",
+      "tests/determinisation_test.bin",
+      "tests/determinisation.c"
+    ],
+    "directory": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates",
+    "file": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/tests/determinisation.c",
+    "output": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/tests/determinisation_test.bin"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-g",
+      "-I./include",
+      "pile.o",
+      "file.o",
+      "afd.o",
+      "afn.o",
+      "compregex.o",
+      "-o",
+      "tests/union_test.bin",
+      "tests/union.c"
+    ],
+    "directory": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates",
+    "file": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/tests/union.c",
+    "output": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/tests/union_test.bin"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-g",
+      "-I./include",
+      "pile.o",
+      "file.o",
+      "afd.o",
+      "afn.o",
+      "compregex.o",
+      "-o",
+      "tests/concat_test.bin",
+      "tests/concat.c"
+    ],
+    "directory": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates",
+    "file": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/tests/concat.c",
+    "output": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/tests/concat_test.bin"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-g",
+      "-I./include",
+      "pile.o",
+      "file.o",
+      "afd.o",
+      "afn.o",
+      "compregex.o",
+      "-o",
+      "tests/kleen_test.bin",
+      "tests/kleen.c"
+    ],
+    "directory": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates",
+    "file": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/tests/kleen.c",
+    "output": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/tests/kleen_test.bin"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-g",
+      "-I./include",
+      "pile.o",
+      "file.o",
+      "afd.o",
+      "afn.o",
+      "compregex.o",
+      "-o",
+      "tests/grep_test.bin",
+      "tests/grep.c"
+    ],
+    "directory": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates",
+    "file": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/tests/grep.c",
+    "output": "/home/kruezenberg/LICENCE_3/Meloni/TP-automates/tests/grep_test.bin"
+  }
+]

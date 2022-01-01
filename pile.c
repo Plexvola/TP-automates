@@ -1,7 +1,7 @@
 #include "pile.h"
 #include <stdlib.h>
 
-void empile(unsigned int v, pile * p)
+void empile(unsigned int v, pile *p)
 {
 	pile tmp = malloc(sizeof(redpile));
 	tmp->rec = v;
@@ -9,7 +9,7 @@ void empile(unsigned int v, pile * p)
 	*p = tmp;
 }
 
-unsigned int depile(pile * p)
+unsigned int depile(pile *p)
 {
 	pile tmp = *p;
 	int val = tmp->rec;

@@ -1,11 +1,11 @@
 #include "afd.h"
 #include "afn.h"
 #include "compregex.h"
-#include <stdlib.h>
 #include <getopt.h>
-#define GRN "\e[0;32m"
+#include <stdlib.h>
+#define GREEN "\e[0;32m"
 #define RED "\e[0;31m"
-#define reset "\e[0m"
+#define RESET "\e[0m"
 
 int main(int argc, char *argv[])
 {
@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 		case 'v':
 			verbose = 1;
 			break;
-		case 'h':
+
 			printf("usage: %s [-v] <exreg> <chaîne>\n", argv[0]);
 			exit(EXIT_SUCCESS);
 		default:
@@ -30,19 +30,24 @@ int main(int argc, char *argv[])
 	}
 	afn N;
 	afd D;
-	char *regex = argv[optind];
+	char *regex_input = argv[optind];
 	char *s = argv[optind + 1];
-	int n = strlen(regex);
-	lex_unit *l = scanner(regex, n);
+	int n = strnlen(regex_input, 256);
+	lex_unit *l = scanner(regex_input, n);
 	N = parser(l, n);
+	free(l);
 	if (verbose) {
 		afn_print(N);
 	}
 	afn_determinisation(N, &D);
-	if (afd_simul(s, D)) {
-		printf(GRN "accepté\n" reset);
+	afn_free(&N);
+	int sim = afd_simul(s, D);
+	afd_free(&D);
+	if (sim) {
+		puts(GREEN "accepté" RESET);
+		return 0;
 	} else {
-		printf(RED "rejeté\n" reset);
+		puts(RED "rejeté" RESET);
+		return 1;
 	}
-	return 0;
 }

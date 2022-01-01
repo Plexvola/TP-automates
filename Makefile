@@ -1,49 +1,48 @@
-CC = gcc
-CFLAGS = -Wall -g
+CC=gcc
+CFLAGS=-Wall -g -I./include
+OBJ=pile.o file.o afd.o afn.o compregex.o
+TESTS=determinisation_test.bin union_test.bin concat_test.bin kleen_test.bin grep_test.bin
 
-all: af mygrep
+all: mygrep test valgrind tags
 
-mygrep: mygrep.o compregex.o afn.o afd.o pile.o file.o
+test: mygrep $(TESTS)
+	./mygrep "a" "a"
+	not ./mygrep "a" "b"
+	./mygrep "[abc]" "a"
+	./mygrep "[abc]" "b"
+	./mygrep "[abc]" "c"
+	not ./mygrep "[abc]" "d"
+	./mygrep "a{3}" "aaa"
+	not ./mygrep "a{3}" "aaaa"
+	./mygrep "r*" "rrrrrrrr"
+	not ./mygrep "r*" "rrrurr"
+	./mygrep "o.v" "ov"
+	not ./mygrep "o.v" "ou"
+	./mygrep "x+y" "x"
+	./mygrep "x+y" "y"
+	not ./mygrep "x+y" "z"
+	for test in $(TESTS); do ./tests/$$test; done
+
+valgrind: mygrep
+	valgrind --suppressions=mygrep.supp --leak-check=full --show-leak-kinds=all ./mygrep "([at]*).(n{5}+r{2})" "attaatattnnnnn"
+
+%_test.bin: ./tests/%.c $(OBJ)
+	$(CC) $(CFLAGS) $^ -o tests/$@
+
+mygrep: mygrep.o $(OBJ)
 	$(CC) $(CFLAGS) $^ -o $@
 
-af:af.o afd.o afn.o pile.o file.o
+af:af.o $(OBJ)
 	$(CC) $(CFLAGS) $^ -o $@
-
-ex1:afd.o afn.o ex1.o pile.o file.o
-	$(CC) $(CFLAGS) $^ -o $@ && ./ex1; rm ex1
-
-union:afd.o afn.o ex2_u.o pile.o file.o
-	$(CC) $(CFLAGS) $^ -o $@ && ./union; rm union
-
-concat:afd.o afn.o ex2_c.o pile.o file.o
-	$(CC) $(CFLAGS) $^ -o $@ && ./concat; rm concat
-
-kleen:afd.o afn.o ex2_k.o pile.o file.o
-	$(CC) $(CFLAGS) $^ -o $@ && ./kleen; rm kleen
-
-grep: ex3.o compregex.o afn.o afd.o pile.o file.o
-	$(CC) $(CFLAGS) $^ -o $@ && ./grep; rm grep
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) $< -o $@
 
-ex1.o: ./test/test_ex1.c
-	$(CC) -c $(CFLAGS) $< -o $@
-
-ex2_u.o: ./test/test_ex2_union.c
-	$(CC) -c $(CFLAGS) $< -o $@
-
-ex2_c.o: ./test/test_ex2_concat.c
-	$(CC) -c $(CFLAGS) $< -o $@
-
-ex2_k.o: ./test/test_ex2_kleen.c
-	$(CC) -c $(CFLAGS) $< -o $@
-
-ex3.o: ./test/ex3_grep.c
-	$(CC) -c $(CFLAGS) $< -o $@
-
 clean:
-	rm -f *.o *~ *.bak
+	rm -f *.o *~ *.bak tags af mygrep tests/*_test.bin
+
+tags: af*.[hc] compregex.[hc] [pf]ile.[hc] mygrep.c
+	ctags -R $^
 
 lint:
-	indent -kr -ts4 *.c
+	clang-format -i -style='{IndentWidth: 4, TabWidth: 4, UseTab: AlignWithSpaces, ColumnLimit: 80, AlignAfterOpenBracket: true, BreakBeforeBraces: Linux, PointerAlignment: Right}' *.c tests/*.c

@@ -1,7 +1,7 @@
 #include "file.h"
 #include <stdlib.h>
 
-void enfile(unsigned long long v, file * f)
+void enfile(unsigned long long v, file *f)
 {
 	file tmp = malloc(sizeof(bluefile));
 	tmp->rec = v;
@@ -9,12 +9,13 @@ void enfile(unsigned long long v, file * f)
 	*f = tmp;
 }
 
-unsigned long long defile(file * f)
+unsigned long long defile(file *f)
 {
 	file tmp = *f;
 	if (!tmp->nxt) {
 		int val = tmp->rec;
 		*f = NULL;
+		free(tmp);
 		return val;
 	}
 	while (tmp->nxt->nxt) {

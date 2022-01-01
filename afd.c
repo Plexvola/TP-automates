@@ -1,9 +1,9 @@
+#include "afd.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "afd.h"
 
-void afd_init(afd * A, uint nbetat, char *alphabet, uint nbfinal,
-			  uint init, uint * finals)
+void afd_init(afd *A, uint nbetat, char *alphabet, uint nbfinal, uint init,
+              uint *finals)
 {
 	int i, nbsymb = 0;
 	uchar symb;
@@ -20,19 +20,16 @@ void afd_init(afd * A, uint nbetat, char *alphabet, uint nbfinal,
 	A->nbsymb = strlen(alphabet);
 
 	while (*alphabet != '\0') {
-
 		if ((*alphabet < SYMB_ASCII_DEB) || (*alphabet > SYMB_ASCII_FIN)) {
-			fprintf(stderr,
-					"[afd_init] caractere ascii numero %d invalide\n",
-					*alphabet);
+			fprintf(stderr, "[afd_init] caractere ascii numero %d invalide\n",
+			        *alphabet);
 			exit(-1);
 		}
 
-		symb = (uchar) (*alphabet - SYMB_ASCII_DEB);
+		symb = (uchar)(*alphabet - SYMB_ASCII_DEB);
 		if (A->tsymb[symb] != SYMB_NONE) {
-			fprintf(stderr,
-					"[afd_init] caractere <%c> deja defini (ignorer)\n",
-					symb);
+			fprintf(stderr, "[afd_init] caractere <%c> deja defini (ignorer)\n",
+			        symb);
 		} else {
 			A->tsymb[symb] = nbsymb;
 			nbsymb++;
@@ -54,7 +51,7 @@ void afd_init(afd * A, uint nbetat, char *alphabet, uint nbfinal,
 	}
 }
 
-void afd_free(afd * A)
+void afd_free(afd *A)
 {
 	int i;
 	free(A->finals);
@@ -64,7 +61,7 @@ void afd_free(afd * A)
 	free(A->delta);
 }
 
-void afd_add_trans(afd * A, uint q1, uint s, uint q2)
+void afd_add_trans(afd *A, uint q1, uint s, uint q2)
 {
 	uchar symb = A->tsymb[s - SYMB_ASCII_DEB];
 
@@ -85,7 +82,7 @@ void afd_add_trans(afd * A, uint q1, uint s, uint q2)
 	A->delta[q1][symb] = q2;
 }
 
-void afd_copy(afd * dest, afd * src)
+void afd_copy(afd *dest, afd *src)
 {
 	dest->nbetat = src->nbetat;
 	dest->nbsymb = src->nbsymb;
@@ -143,11 +140,11 @@ void afd_print(afd A)
 				printed = 1;
 			}
 		}
-		//if (printed==0) printf("\n");
+		// if (printed==0) printf("\n");
 	}
 }
 
-void afd_finit(afd * A, char *nomfichier)
+void afd_finit(afd *A, char *nomfichier)
 {
 	FILE *f;
 	uint nbetat;
@@ -169,7 +166,7 @@ void afd_finit(afd * A, char *nomfichier)
 		afd_add_trans(A, etat1, symb, etat2);
 }
 
-int afd_simul(char *s, afd A)
+int afd_simul(const char *s, afd A)
 {
 	uint etat = A.init;
 	int i = 0;
@@ -177,13 +174,13 @@ int afd_simul(char *s, afd A)
 		etat = A.delta[etat][A.tsymb[s[i] - SYMB_ASCII_DEB]];
 		i++;
 	}
-	for (int i = 0; i < A.nbfinal; ++i)
-		if (etat == A.finals[i])
+	for (int j = 0; j < A.nbfinal; ++j)
+		if (etat == A.finals[j])
 			return 1;
 	return 0;
 }
 
-void afd_add_state(afd * A)
+void afd_add_state(afd *A)
 {
 	A->nbetat += 1;
 	int j;
@@ -194,7 +191,7 @@ void afd_add_state(afd * A)
 	}
 }
 
-void afd_add_final(afd * A, uint f)
+void afd_add_final(afd *A, uint f)
 {
 	A->nbfinal += 1;
 	A->finals = reallocarray(A->finals, A->nbfinal, sizeof(uint *));
